@@ -14,9 +14,9 @@
 #include <ArduinoJson.h>
 // #define OFFSET 1.4 (if needed to calibrate sensor)
 #define MQTT_CLIENT_ID  "Soil_Sensor"
-#define MQTT_SENSOR_TOPIC "soil/sensor1"
+#define MQTT_SENSOR_TOPIC "Soil_Sensor/sensor1"
 #define uS_TO_S_FACTOR 1000000
-#define TIME_TO_SLEEP  300
+#define TIME_TO_SLEEP  30
 #define SENSITIVITY (3.3 / 1024.0)
 
 const char* ssid = WIFI_SSID;
@@ -81,7 +81,7 @@ void loop() {
   Serial.print("Current soil humidity = ");
   Serial.print(humidity);
   Serial.println();
-  int pctHumidity = map(humidity, 0,950,0,100);
+  int pctHumidity = map(humidity, 0,1033.23,0,100);
   Serial.print("Humidity percentage: ");
   Serial.println(pctHumidity);
   Serial.println();
@@ -89,7 +89,7 @@ void loop() {
   batteryPct = getBatteryPercentage();
 
   StaticJsonDocument<300> doc;
-  doc["device"] = "Soil_Sensor";
+  doc["device"] = "Plant_Soil_Sensor";
   doc["humidity"] = humidity;
   doc["BatteryPct"] = batteryPct;
 
